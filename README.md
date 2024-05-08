@@ -2,7 +2,7 @@
 
 QuantGPT v2 is the next iteration of the [QuantGPT](https://github.com/rnikitin/QuantGPT) project, originally created by [@rnikitin](https://github.com/rnikitin/). This version aims to improve on the original by utilizing a more stable front-end framework, Next.js, and the newly updated OpenAI Assistants API v2.
 
-![VectorBT (PRO) Docs Assistant](https://uploads-ssl.webflow.com/60ca4a4b1629ce06182a97e6/663adc0569bcc533c98afefd_localhost_3000_examples_file-search.png)
+![VectorBT (PRO) Docs Assistant](https://uploads-ssl.webflow.com/60ca4a4b1629ce06182a97e6/663b0900e3e50e7f39673089_localhost_3000_chat%20(1).png)
 
 ## Features
 
@@ -93,6 +93,7 @@ npm run dev
 ```
 
 ### 11. Navigate to [http://localhost:3000](http://localhost:3000).
+Once you are on the main page, you will be prompted to select an interface type. For now, only the basic chat interface is functioning properly. The file search interface is still a work in progress as it is lacking pagination and a few other features.
 
 ## Deployment
 
