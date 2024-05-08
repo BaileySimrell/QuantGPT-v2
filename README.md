@@ -3,7 +3,7 @@
 This was based on a clone of a quick-start template using the OpenAI [Assistants API](https://platform.openai.com/docs/assistants/overview) with [Next.js](https://nextjs.org/docs).
 <br/>
 <br/>
-![OpenAI Assistants API Quickstart](https://github.com/openai/openai-assistants-quickstart/assets/27232/755e85e9-3ea4-421f-b202-3b0c435ea270)
+![VectorBT (PRO) Docs Assistant](https://uploads-ssl.webflow.com/60ca4a4b1629ce06182a97e6/663adc0569bcc533c98afefd_localhost_3000_examples_file-search.png)
 
 ## Quickstart Setup
 
