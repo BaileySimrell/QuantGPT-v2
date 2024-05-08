@@ -248,10 +248,11 @@ const Chat = ({
   }
 
   const handleInputResize = (e) => {
-    e.target.style.height = 'inherit';
-    e.target.style.height = `${e.target.scrollHeight}px`; // Adjust height based on content
-  };
-  
+    const textarea = e.target;
+    textarea.style.height = 'auto';
+    textarea.style.height = `${textarea.scrollHeight}px`;
+};
+
 
   return (
     <div className={styles.chatContainer}>
