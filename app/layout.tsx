@@ -5,10 +5,10 @@ import { assistantId } from "./assistant-config";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Assistants API Quickstart",
-  description: "A quickstart template using the Assistants API with OpenAI",
+  title: "QuantGPT",
+  description: "A helpful assistant designed to help you navigate through the VectorBT (PRO) documentation.",
   icons: {
-    icon: "/openai.svg",
+    icon: "/vectorbtpro.svg",
   },
 };
 
@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         {assistantId ? children : <Warnings />}
-        <img className="logo" src="/openai.svg" alt="OpenAI Logo" />
+        <img className="logo" src="/vectorbtpro.svg" alt="VectorBT (PRO) Logo" />
       </body>
     </html>
   );

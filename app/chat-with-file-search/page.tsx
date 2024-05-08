@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
-import styles from "../shared/page.module.css";
+import styles from "../page.module.css";
 
-import Chat from "../../components/chat";
-import FileViewer from "../../components/file-viewer";
+import Chat from "../components/chat";
+import FileViewer from "../components/file-viewer";
 
 const FileSearchPage = () => {
   return (

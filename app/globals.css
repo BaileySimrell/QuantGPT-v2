@@ -71,3 +71,7 @@ pre {
   background-color: #e4e4e4;
   color: black;
 }
+
+.invert {
+  filter: invert(1);
+}

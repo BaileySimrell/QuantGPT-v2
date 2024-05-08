@@ -24,18 +24,36 @@ const FileViewer = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       fetchFiles();
-    }, 1000);
+    }, 10000);
 
     return () => clearInterval(interval);
   }, []);
 
-  const fetchFiles = async () => {
-    const resp = await fetch("/api/assistants/files", {
-      method: "GET",
-    });
-    const data = await resp.json();
-    setFiles(data);
-  };
+  // const fetchFiles = async () => {
+  //   const resp = await fetch("/api/assistants/files", {
+  //     method: "GET",
+  //   });
+  //   const data = await resp.json();
+  //   setFiles(data);
+  // };
+
+  const fetchFiles = async (retryDelay = 1000) => {
+    try {
+      const resp = await fetch("/api/assistants/files", {
+        method: "GET",
+      });
+      if (resp.status === 429) {  // Check if the response is 429 (Rate Limit Exceeded)
+        setTimeout(() => fetchFiles(retryDelay * 2), retryDelay);  // Retry with increased delay
+        return;
+      }
+      const data = await resp.json();
+      console.log('Fetched files:', data);
+      setFiles(data);
+      console.log('Updated files state:', files);
+    } catch (error) {
+      console.error('Failed to fetch files:', error);
+    }
+  };  
 
   const handleFileDelete = async (fileId) => {
     await fetch("/api/assistants/files", {
@@ -54,44 +72,84 @@ const FileViewer = () => {
     });
   };
 
-  return (
-    <div className={styles.fileViewer}>
-      <div
-        className={`${styles.filesList} ${
-          files.length !== 0 ? styles.grow : ""
-        }`}
-      >
-        {files.length === 0 ? (
-          <div className={styles.title}>Attach files to test file search</div>
-        ) : (
-          files.map((file) => (
-            <div key={file.file_id} className={styles.fileEntry}>
-              <div className={styles.fileName}>
-                <span className={styles.fileName}>{file.filename}</span>
-                <span className={styles.fileStatus}>{file.status}</span>
-              </div>
-              <span onClick={() => handleFileDelete(file.file_id)}>
-                <TrashIcon />
-              </span>
+//   return (
+//     <div className={styles.fileViewer}>
+//       <div
+//         className={`${styles.filesList} ${
+//           files.length !== 0 ? styles.grow : ""
+//         }`}
+//       >
+//         {files.length === 0 ? (
+//           <div className={styles.title}>Attach files to test file search</div>
+//         ) : (
+//           files.map((file) => (
+//             <div key={file.file_id} className={styles.fileEntry}>
+//               <div className={styles.fileName}>
+//                 <span className={styles.fileName}>{file.filename}</span>
+//                 <span className={styles.fileStatus}>{file.status}</span>
+//               </div>
+//               <span onClick={() => handleFileDelete(file.file_id)}>
+//                 <TrashIcon />
+//               </span>
+//             </div>
+//           ))
+//         )}
+//       </div>
+//       <div className={styles.fileUploadContainer}>
+//         <label htmlFor="file-upload" className={styles.fileUploadBtn}>
+//           Attach files
+//         </label>
+//         <input
+//           type="file"
+//           id="file-upload"
+//           name="file-upload"
+//           className={styles.fileUploadInput}
+//           multiple
+//           onChange={handleFileUpload}
+//         />
+//       </div>
+//     </div>
+//   );
+// };
+
+return (
+  <div className={styles.fileViewer}>
+    <div className={`${styles.filesList} ${files.length !== 0 ? styles.grow : ""}`}>
+      {/* Check if files is defined and has length greater than zero */}
+      {files && files.length > 0 ? (
+        files.map((file) => (
+          <div key={file.file_id} className={styles.fileEntry}>
+            <div className={styles.fileName}>
+              <span className={styles.fileName}>{file.filename}</span>
+              <span className={styles.fileStatus}>{file.status}</span>
             </div>
-          ))
-        )}
-      </div>
-      <div className={styles.fileUploadContainer}>
-        <label htmlFor="file-upload" className={styles.fileUploadBtn}>
-          Attach files
-        </label>
-        <input
-          type="file"
-          id="file-upload"
-          name="file-upload"
-          className={styles.fileUploadInput}
-          multiple
-          onChange={handleFileUpload}
-        />
-      </div>
+            <span onClick={() => handleFileDelete(file.file_id)}>
+              <TrashIcon />
+            </span>
+          </div>
+        ))
+      ) : (
+        <div className={styles.title}>
+          {/* Display a loading message or no files message depending on state */}
+          {files ? "No files found. Attach files to test file search." : "Loading files..."}
+        </div>
+      )}
     </div>
-  );
+    <div className={styles.fileUploadContainer}>
+      <label htmlFor="file-upload" className={styles.fileUploadBtn}>
+        Attach files
+      </label>
+      <input
+        type="file"
+        id="file-upload"
+        name="file-upload"
+        className={styles.fileUploadInput}
+        multiple
+        onChange={handleFileUpload}
+      />
+    </div>
+  </div>
+);
 };
 
 export default FileViewer;
