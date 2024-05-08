@@ -129,7 +129,15 @@ const Chat = ({
     setUserInput("");
     setInputDisabled(true);
     scrollToBottom();
-  };
+
+    // Reset textarea height
+    setTimeout(() => {
+      const textarea = document.querySelector('textarea');
+      if (textarea) {
+        textarea.style.height = 'auto';
+      }
+    }, 0);
+};
 
   /* Stream Event Handlers */
 
@@ -253,6 +261,12 @@ const Chat = ({
     textarea.style.height = `${textarea.scrollHeight}px`;
 };
 
+const handleKeyDown = (e) => {
+  // Check if either Ctrl or Command is pressed along with Enter
+  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+      handleSubmit(e); // Call your form submit handler
+  }
+};
 
   return (
     <div className={styles.chatContainer}>
@@ -271,9 +285,11 @@ const Chat = ({
           value={userInput}
           onChange={(e) => setUserInput(e.target.value)}
           onInput={(e) => handleInputResize(e)}
+          onKeyDown={handleKeyDown} // Add this line
           placeholder="Enter your question"
-          rows={1} // Start with a single row
+          rows={1}
         />
+
         <button
           type="submit"
           className={styles.button}
