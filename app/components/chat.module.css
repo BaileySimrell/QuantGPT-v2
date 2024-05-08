@@ -7,6 +7,7 @@
 
 .inputForm {
   display: flex;
+  align-items: flex-end;
   width: 100%;
   padding: 10px;
   padding-bottom: 40px;
@@ -17,11 +18,23 @@
   flex-grow: 1;
   padding: 16px 24px;
   margin-right: 10px;
-  border-radius: 60px;
+  border-radius: 32px;
   border: 2px solid transparent;
   font-size: 1em;
   background-color: #efefef;
+  resize: none; 
+  overflow: hidden; 
+  line-height: 1.5; 
+  box-sizing: border-box; 
+  font-family: 'Arial', sans-serif;
 }
+
+.input:focus {
+  outline: none !important;
+  border-color: #000;
+  background-color: white;
+}s
+
 
 .input:focus {
   outline: none !important;
@@ -29,13 +42,17 @@
   background-color: white;
 }
 
+
 .button {
   padding: 8px 24px;
   background-color: #000;
+  max-height: 64px;
+  height: 100%;
+  width: 120px;
   color: white;
   border: none;
   font-size: 1em;
-  border-radius: 60px; /* Removed duplicate border-radius property */
+  border-radius: 32px;
 }
 
 .button:disabled {

@@ -245,8 +245,13 @@ const Chat = ({
       })
       return [...prevMessages.slice(0, -1), updatedLastMessage];
     });
-    
   }
+
+  const handleInputResize = (e) => {
+    e.target.style.height = 'inherit';
+    e.target.style.height = `${e.target.scrollHeight}px`; // Adjust height based on content
+  };
+  
 
   return (
     <div className={styles.chatContainer}>
@@ -260,12 +265,13 @@ const Chat = ({
         onSubmit={handleSubmit}
         className={`${styles.inputForm} ${styles.clearfix}`}
       >
-        <input
-          type="text"
+        <textarea
           className={styles.input}
           value={userInput}
           onChange={(e) => setUserInput(e.target.value)}
+          onInput={(e) => handleInputResize(e)}
           placeholder="Enter your question"
+          rows={1} // Start with a single row
         />
         <button
           type="submit"
@@ -275,6 +281,7 @@ const Chat = ({
           Send
         </button>
       </form>
+
     </div>
   );
 };
